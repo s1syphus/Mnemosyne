@@ -1,7 +1,6 @@
 
 #include "neural.h"
 
-//Multi-layer Peceptron (MLP) Network
 
 MLP::MLP(){
 

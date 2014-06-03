@@ -24,7 +24,6 @@ class MLP{
 		void Train();
 		void Test();
 
-
 	}
 
 
