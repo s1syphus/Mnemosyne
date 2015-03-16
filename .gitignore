@@ -1,0 +1,8 @@
+#Compile object files
+*.o
+
+#temp vim files
+*.swp
+
+#executables
+*.out
