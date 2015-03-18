@@ -1,4 +1,4 @@
-OBJS = mnemosyne.o net.o dataIn.o
+OBJS = mnemosyne.o net.o dataIn.o neuron.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)

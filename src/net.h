@@ -28,9 +28,9 @@ class Net{
 		double getRecentAverageError();
 
 	private:
-		vector<Layer> myLayers;	
+		vector<Layer> m_layers;	
 		double m_error;
-		double m_recentAverageSmoothingFactor;
+		double m_recentAverageSmoothing;
 		double m_recentAverageError;
 
 		//these values are for the neurons that make up the net

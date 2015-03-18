@@ -13,25 +13,22 @@ Neuron::Neuron(unsigned numOutputs, unsigned myIndex, double myEta, double myAlp
 	m_alpha = myAlpha;
 
 	for(unsigned c = 0; c < numOutputs; c++){
-		m_outputWeights.pushBack(Connection(randomWeight));
+		m_outputWeights.push_back(Connection(randomWeight()));
 		}
 	m_index = myIndex;
 	}
 
-
-Neuron::~Neuron(){
-	//should probably make this eventually, going to make sure 
-	//things are working first though
-
+void Neuron::setOutputVal(double myVal){
+	m_outputVal = myVal;
 	}
 
-void Neuron::feedFoward(const Layer &prevLayer){
+void Neuron::feedForward(Layer &prevLayer){
 	double sum = 0.0;
 	for(unsigned n = 0; n < prevLayer.size(); n++){
-		sum += 	prevLayer[n].getOutput() * 
-			prevLayer.m_outputWeights[myIndex].weight;
+		sum += 	prevLayer[n].getOutputVal() * 
+			prevLayer[n].m_outputWeights[m_index].weight;
 		}
-	outputVal = activationFunction(sum);
+	m_outputVal = activationFunction(sum);
 	}
 
 double Neuron::sumErrors(Layer &nextLayer){
@@ -57,10 +54,10 @@ void Neuron::updateInputWeights(Layer &prevLayer){
 	for(unsigned n = 0; n < prevLayer.size() - 1; n++){
 		Neuron &neuron = prevLayer[n];
 		oldDeltaWeight = neuron.m_outputWeights[m_index].deltaWeight;
-		newDeltaWeight = eta * neuron.getOutputVal() * m_gradient + 
-				alpha * oldDeltaWeight;
+		newDeltaWeight = m_eta * neuron.getOutputVal() * m_gradient + 
+				m_alpha * oldDeltaWeight;
 		neuron.m_outputWeights[m_index].deltaWeight = newDeltaWeight;
-		neuron.m_outputWeights[m_index].weight ++ newDeltaWeight;
+		neuron.m_outputWeights[m_index].weight += newDeltaWeight;
 		}
 	}
 

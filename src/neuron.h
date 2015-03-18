@@ -27,9 +27,14 @@ class Neuron{
 
 	public:
 		Neuron(unsigned, unsigned, double, double);
-		~Neuron();	//this needs to be finished at some point
+//		~Neuron();	//this needs to be finished at some point
 
-		void feedForward(const Layer &prevLayer);	
+		void setOutputVal(double);
+		void feedForward(Layer &prevLayer);	
+		double getOutputVal();
+		void calcHiddenGradients(Layer&);
+		void calcOutputGradients(double);
+		void updateInputWeights(Layer&);
 
 	private:
 
@@ -43,11 +48,7 @@ class Neuron{
 		double activationFunction(double);
 		double activationDerivative(double);	
 		double randomWeight();
-		double sumError(Layer&);
-		void calcHiddenGradients(Layer&);
-		void calcOutputGradients(double);
-		void updateInputWeights(Layer&);
-		double getOutputVal();
+		double sumErrors(Layer&);
 	};
 
 
