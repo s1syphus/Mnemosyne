@@ -46,20 +46,30 @@ int main(int argc, char** argv){
 	vector<double> resultVals;
 	myData.loadData(topology,inputVals, targetVals);	
 	Net myNet(topology);
-
 	for(unsigned i = 0; i < inputVals.size(); i++){
 		//this loops through all of the training samples that are saved in the vector
 		//this will break down for large inputs but at that point, a parallel system
 		//needs to be created anyways, which will alleviate both 
 		//the memory and processing bottlenecks
-
 		myNet.feedForward(inputVals[i]);	
 		myNet.getResults(resultVals);
 		myNet.backProp(targetVals[i]);	
-		
-		cout << "Net recent average error for pass "<<i<<": "<< myNet.getRecentAverageError() << endl;
-
 		}
+
+	//below is how main should look:
+	//
+	//trainingData myData("source file")
+	//topology = myData.getTopology()
+	//Net myNet(topology);
+	//myNet.train(myData.trainingData());
+	//myNet.test(myData.testingData());
+	//myNet.getResults();
+	//
+	// or something to that affect, should be very simple and abstracted away
+
+
+
+
 
 	return 0;
 	}
