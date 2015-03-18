@@ -2,6 +2,7 @@
 //mnemosyne.cpp
 
 #include "net.h"
+#include "dataIn.h"
 
 //other includes here for data input
 //most of the net stuff is in "net" (duh)

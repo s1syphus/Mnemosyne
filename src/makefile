@@ -1,4 +1,4 @@
-OBJS = mnemosyne.o net.o
+OBJS = mnemosyne.o net.o dataIn.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -9,6 +9,9 @@ mnemosyne: $(OBJS)
 
 mnemosyne.o: mnemosyne.cpp net.h
 	$(CC) $(CFLAGS) mnemosyne.cpp
+
+dataIn.o: dataIn.cpp dataIn.h
+	$(CC) $(CFLAGS) dataIn.cpp
 
 neuron.o: neuron.cpp neuron.h
 	$(CC) $(CFLAGS) neuron.cpp

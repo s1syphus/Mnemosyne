@@ -1,9 +1,6 @@
 
 //net.h
 
-//make this more parallel after working
-
-
 #ifndef NET_H
 #define NET_H
 
@@ -17,18 +14,30 @@ class Net{
 	public:
 		Net(vector<unsigned>);
 		Net(vector<unsigned>,double, double);
+
+		//this will reset the eta and alpha for every 
+		//neuron in the net
 		void setEta(double);
 		void setAlpha(double);
+		double getEta();
+		double getAlpha();
 
 		void feedForward(vector<double> &);
 		void backProp(vector<double> &);
-
+		void getResults(vector<double> &);
+		double getRecentAverageError();
 
 	private:
 		vector<Layer> myLayers;	
-		double error;
-		double alpha;
-		double eta;
+		double m_error;
+		double m_recentAverageSmoothingFactor;
+		double m_recentAverageError;
+
+		//these values are for the neurons that make up the net
+		//these values themselves just hold the data for bookkeeping 
+		//purposes
+		double m_alpha;
+		double m_eta;
 	};
 
 
