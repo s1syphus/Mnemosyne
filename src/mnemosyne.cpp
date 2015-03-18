@@ -24,68 +24,42 @@ void showVectorVals(string label, vector<double> &v)
     cout << endl;
 }
 
+void showVectorVals(string label, vector<unsigned> &v)
+{
+    cout << label << " ";
+    for (unsigned i = 0; i < v.size(); ++i) {
+        cout << v[i] << " ";
+    }
 
+    cout << endl;
+}
 int main(int argc, char** argv){
 
-	//net creation stuff here
-	//add in some sort of load function
-	//will have to create some data to test, probably XOR (standard)
 
+	//this is working right now, should change to a trainingData vs testingData soon
+	//add in a save function for weights, could be tricky but that should be the next step
 
-	//this is from david miller
-	//website is in one of the other files
-	//just being used for testing purposes, will replace later
+	TrainingData myData("../data/newXORData.txt");	//change this to command line or something soon
 
-	TrainingData trainData("../data/xorData.txt");
 	vector<unsigned> topology;
-	    trainData.getTopology(topology);
+	vector<vector<double> > inputVals, targetVals;
+	vector<double> resultVals;
+	myData.loadData(topology,inputVals, targetVals);	
+	Net myNet(topology);
 
-	    Net myNet(topology);
+	for(unsigned i = 0; i < inputVals.size(); i++){
+		//this loops through all of the training samples that are saved in the vector
+		//this will break down for large inputs but at that point, a parallel system
+		//needs to be created anyways, which will alleviate both 
+		//the memory and processing bottlenecks
 
-	    vector<double> inputVals, targetVals, resultVals;
-	    int trainingPass = 0;
-
-	    while (!trainData.isEof()) {
-		++trainingPass;
-		cout << endl << "Pass " << trainingPass;
-
-		// Get new input data and feed it forward:
-		if (trainData.getNextInputs(inputVals) != topology[0]) {
-		    break;
-		}
-		showVectorVals(": Inputs:", inputVals);
-		myNet.feedForward(inputVals);
-
-		// Collect the net's actual output results:
+		myNet.feedForward(inputVals[i]);	
 		myNet.getResults(resultVals);
-		showVectorVals("Outputs:", resultVals);
+		myNet.backProp(targetVals[i]);	
+		
+		cout << "Net recent average error for pass "<<i<<": "<< myNet.getRecentAverageError() << endl;
 
-		// Train the net what the outputs should have been:
-		trainData.getTargetOutputs(targetVals);
-		showVectorVals("Targets:", targetVals);
-		assert(targetVals.size() == topology.back());
-
-		myNet.backProp(targetVals);
-
-		// Report how well the training is working, average over recent samples:
-		cout << "Net recent average error: "
-			<< myNet.getRecentAverageError() << endl;
-	    }
-
-	    cout << endl << "Done" << endl;
-
-
-
-
-
-
-
-
-
-
-
-	
-
+		}
 
 	return 0;
 	}

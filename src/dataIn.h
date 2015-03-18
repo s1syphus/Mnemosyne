@@ -4,11 +4,14 @@
 #ifndef READ_IN_DATA_H
 #define READ_IN_DATA_H
 
-//right now this is verbatim from david miller
+//based on David Miller's neural network
 //http://millermattson.com/dave
 //
-//going to write my own soon but what to make sure stuff is working
-//neural-net-wise
+//currently for text input, going to add image support
+//in the near future
+//
+//this is not really neccessary as a seperate class atm but will
+//be more complicated soon
 
 #include <fstream>
 #include <sstream>
@@ -20,26 +23,15 @@
 
 using namespace std;
 
-class TrainingData
-{
-public:
-    TrainingData(const string filename);
-    bool isEof(void) { return m_trainingDataFile.eof(); }
-    void getTopology(vector<unsigned> &topology);
+class TrainingData{
+	public:
+		TrainingData(string filename);
+		void loadData(vector<unsigned> &, 
+			vector<vector<double> > &, vector<vector<double> > &);
+		bool isEOF();
 
-    // Returns the number of input values read from the file:
-    unsigned getNextInputs(vector<double> &inputVals);
-    unsigned getTargetOutputs(vector<double> &targetOutputVals);
-
-private:
-    ifstream m_trainingDataFile;
-};
-
-
-
-
-
-
-
+	private:
+		ifstream m_trainingDataFile;
+	};
 
 #endif

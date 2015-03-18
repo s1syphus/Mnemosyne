@@ -77,9 +77,6 @@ void Net::backProp(vector<double> &targetVals){
 
 void Net::feedForward(vector<double> &inputVals){
 
-	//quick error-checking
-	assert(inputVals.size() == m_layers[0].size() - 1);
-
 	for(unsigned i = 0; i < inputVals.size(); i++){
 		m_layers[0][i].setOutputVal(inputVals[i]);
 		}
