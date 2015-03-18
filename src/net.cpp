@@ -5,8 +5,6 @@
 
 Net::Net(vector<unsigned> topology){
 
-	//THIS IS NOT DONE!!!!!!!!
-
 	//default weights
 	m_eta = 0.15;
 	m_alpha = 0.5;		
@@ -14,11 +12,14 @@ Net::Net(vector<unsigned> topology){
 	unsigned numOutputs;
 	for(unsigned layerNum = 0; layerNum < topology.size(); layerNum++){
 		m_layers.push_back(Layer());
-
+		numOutputs = (layerNum == (topology.size() -1) ? 
+				0 : topology[layerNum + 1];
+		for(unsigned nn = 0; neuronNum <= topology[layerNum]; nn++){
+			m_layers.back().push_back(Neuron(numOutputs, nn));
+			}
+		//bias node
+		m_layers.back().setOutputVal(1.0);
 		}		
-
-
-
 	}
 
 Net::Net(vector<unsigned> topology, double myEta, double myAlpha){
