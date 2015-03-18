@@ -6,6 +6,7 @@
 
 #include "neuron.h"
 #include <vector>
+#include <cassert>
 
 using namespace std;
 

@@ -8,6 +8,8 @@ Net::Net(vector<unsigned> topology){
 	//default weights
 	m_eta = 0.15;
 	m_alpha = 0.5;		
+	m_recentAverageSmoothing = 100.0;
+	m_recentAverageError = 0.0;
 
 	for(unsigned layerNum = 0; layerNum < topology.size(); layerNum++){
 		m_layers.push_back(Layer());
@@ -69,6 +71,23 @@ void Net::backProp(vector<double> &targetVals){
 		Layer &prevLayer = m_layers[layerNum - 1];
 		for(unsigned n = 0; n < layer.size(); n++){
 			layer[n].updateInputWeights(prevLayer);
+			}
+		}
+	}
+
+void Net::feedForward(vector<double> &inputVals){
+
+	//quick error-checking
+	assert(inputVals.size() == m_layers[0].size() - 1);
+
+	for(unsigned i = 0; i < inputVals.size(); i++){
+		m_layers[0][i].setOutputVal(inputVals[i]);
+		}
+
+	for(unsigned layerNum = 1; layerNum < m_layers.size(); layerNum++){
+		Layer &prevLayer = m_layers[layerNum - 1];
+		for(unsigned n = 0; n < m_layers[layerNum].size() - 1; n++){
+			m_layers[layerNum][n].feedForward(prevLayer);
 			}
 		}
 	}
