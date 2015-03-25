@@ -8,10 +8,6 @@
 #include "data.h"
 #include <vector>
 #include <cassert>
-#include <iostream>
-#include <fstream>
-#include <string>
-
 
 using namespace std;
 
@@ -28,23 +24,20 @@ class Net{
 		double getEta();
 		double getAlpha();
 
+
+
 		void feedForward(vector<double> &);
 		void backProp(vector<double> &);
 		void getResults(vector<double> &);
 
 
-		void train(	vector<vector<double> > &input, 
-				vector<vector<double> >&output);
-
-		void test(	vector<vector<double> > &input, 
-				vector<vector<double> >&output);
-
-
-		void saveWeights(string);
-		void loadWeights(string);
-
+		void train(Data);
+		void test(Data);
 	
 		double getRecentAverageError();
+
+		void parameterSweep(Data, double, double, double, 
+				double, double);
 
 	private:
 

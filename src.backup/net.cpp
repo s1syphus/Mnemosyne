@@ -3,22 +3,53 @@
 
 #include "net.h"
 
-void Net::train(vector<vector<double> > &input,
-		vector<vector<double> > &output){
-	assert(input.size() == output.size());
-	for(size_t i = 0; i < input.size(); i++){
-		feedForward(input[i]);
-		backProp(output[i]);
-		}
+void Net::train(Data trainingData){
+
+
 	}
 
-void Net::saveWeights(string filename){
-	//stub
+void Net::test(Data testingData){
+
+
 	}
 
-void Net::loadWeights(string filename){
-	//stub
+//CAUTION: this will be incredible cpu intensive
+//also a low priority, so might not be implemented for a while
+
+void Net::parameterSweep(Data trainingSamples, 
+			double incSize,
+			double etaStart, double etaEnd, 
+			double alphaStart, double alphaEnd){
+
+	//this performs a parameter sweep (over the number of trainingSamples)
+	//optimizing between etaStart and etaEnd and
+	//alphaStart and alphaEnd
+
+
+
+
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Net::Net(vector<unsigned> topology){
 
@@ -38,6 +69,11 @@ Net::Net(vector<unsigned> topology){
 		//bias node
 		m_layers.back().back().setOutputVal(1.0);
 		}		
+	}
+
+Net::Net(vector<unsigned> topology, double myEta, double myAlpha){
+	setEta(myEta);
+	setAlpha(myAlpha);
 	}
 
 double Net::getRecentAverageError(){
@@ -88,6 +124,7 @@ void Net::backProp(vector<double> &targetVals){
 	}
 
 void Net::feedForward(vector<double> &inputVals){
+
 	for(unsigned i = 0; i < inputVals.size(); i++){
 		m_layers[0][i].setOutputVal(inputVals[i]);
 		}
