@@ -114,9 +114,7 @@ int main(int argc, char** argv){
 	//add in bounds checking for eta and alpha soon
 	
 	Net myNet(topology);
-	cout<<"trainingDataInput.size() = "<<trainingDataInput.size()<<"\n";
-	cout<<"trainingDataOutput.size() = "<<trainingDataOutput.size()<<"\n";
-	//myNet.train(trainingDataInput,trainingDataOutput);
+	myNet.train(trainingDataInput,trainingDataOutput);
 
 
 

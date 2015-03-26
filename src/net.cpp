@@ -6,6 +6,7 @@
 void Net::train(vector<vector<double> > &input,
 		vector<vector<double> > &output){
 	assert(input.size() == output.size());
+	cout<<"training\n";
 	for(size_t i = 0; i < input.size(); i++){
 		feedForward(input[i]);
 		backProp(output[i]);
