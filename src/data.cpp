@@ -13,7 +13,7 @@ void Data::makeCut(){
 	//right now just doing first 90/ last 10
 	trainingInput.clear();
 	testingInput.clear();
-	double numCuts = 10;	//change this to be set later
+//	double numCuts = 10;	//change this to be set later
 	unsigned sizeData = inputVals.size();
 	assert(sizeData == outputVals.size());	//sanity check
 	unsigned trainSize = (int) sizeData*0.9;
@@ -81,24 +81,29 @@ void Data::loadCSV(string filename){
 		ss >> n;
 		topology.push_back(n);
 		}
-	
-//	cout<<"topology[0] = "<<topology[0]<<", "<<topology[1]<<endl;	
-	double value;
+
+//	double value;
 //	string comma = ",";
 //	cout<<"testing this: "<<(double) comma<<endl;
 	vector<double> tempInput, tempOutput;
 	string tempString;
+	bool first = true;
 	while(!dataFile.eof()){
 		getline(dataFile, line);
 		stringstream ss(line);
 		tempInput.clear();
 		tempOutput.clear();
-		ss >> value;
-		tempOutput.push_back(value);
 		while(!ss.eof()){
 			getline(ss, tempString, ',');
-			tempInput.push_back(atof(tempString.c_str()));
+			if(first){
+				tempOutput.push_back(atof(tempString.c_str()));
+				first = false;
+				}
+			else{
+				tempInput.push_back(atof(tempString.c_str()));
+				}
 			}
+		first = true;
 		inputVals.push_back(tempInput);
 		outputVals.push_back(tempOutput);
 		}

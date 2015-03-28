@@ -76,8 +76,13 @@ int main(int argc, char** argv){
 
 //	Data myData("../data/XORdata2k.txt");
 
-	Data myData("../data/somemnistdata.csv");
+	//Data myData("../data/somemnistdata.csv");
 //	Data myData("../data/XORdata2k.txt");
+
+	Data myData("../data/100images.csv");
+//	Data myData("../data/1kimages.csv");
+//	Data myData("../data/250images.csv");
+
 	//prep data
 	myData.makeCut();	//0.9 train/ 0.1 test, this can be changed
 	vector<vector<double> > trainingDataInput;
@@ -90,25 +95,10 @@ int main(int argc, char** argv){
 	testingDataInput = myData.getTestingInput();
 	testingDataOutput = myData.getTestingOutput();
 
-	/*
-	cout<<"size of training: "<<trainingDataInput[0].size()<<"\n";
-	cout<<"size of training: "<<trainingDataOutput[0].size()<<"\n";
-
-	for(unsigned i = 0; i < trainingDataInput[0].size(); i++){
-		cout<<trainingDataInput[0][i]<<" ";
-		}
-	cout<<endl;
-*/
 	vector<unsigned> topology;
 	topology.push_back(trainingDataInput[0].size());
 	topology.push_back(trainingDataOutput[0].size());
 
-	cout<<"topology: "<<topology[0]<<"\t"<<topology[1]<<endl;
-
-	for(size_t i = 0; i < topology.size(); i++){
-		cout<<topology[i]<<"\t";
-		}
-	cout<<endl;
 	unsigned n, curLayer = 0, sizeLayer;
 	double myEta, myAlpha;
 	cout<<"Number of hidden layers > ";
@@ -122,15 +112,16 @@ int main(int argc, char** argv){
 		}
 	topology.insert(topology.begin()+1, hiddenLayers.begin(), hiddenLayers.end());
 
+
 	cout<<"Eta (0.15 is recommended) > ";
 	cin>>myEta;
 	cout<<"Alpha (0.5 is recommended) > ";
 	cin>>myAlpha;
 	//add in bounds checking for eta and alpha soon
-	
+
 	Net myNet(topology);
 	myNet.train(trainingDataInput,trainingDataOutput);
-
+	cout<<"trained\n";
 	//	myNet.save("../data/mynet1.meh");
 
 	//I think I need to clean up the memory here

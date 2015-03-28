@@ -12,16 +12,25 @@ void Net::train(vector<vector<double> > &input,
 		}
 	}
 
+
 void Net::test(	vector<vector<double> > &input,
 		vector<vector<double> > &output, double &error){
 	assert(input.size() == output.size());
 	vector<double> tempOut;
 	error = 0.0;
 	for(unsigned i = 0; i < (input.size() - 1); i++){
+		feedForward(input[i]);
 		getResults(tempOut);
-		error += rms(tempOut,output[i]);
+		cout<<"is: "<<tempOut[0]<<" should be: "<<output[i][0]<<endl;
+
+//		error += rms(tempOut,output[i]);
+		if((tempOut[0] - output[i][0]) > 1){
+			cout<<"mislabelled, is: "<<tempOut[0]<<" should be: "<<output[i][0]<<endl;
+			error++;	
+			}
 		}
-	error = (error / (double) input.size());
+
+	error /= (double) input.size();
 	}
 
 double Net::rms(vector<double> &one, vector<double> &two){
