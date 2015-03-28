@@ -6,11 +6,33 @@
 void Net::train(vector<vector<double> > &input,
 		vector<vector<double> > &output){
 	assert(input.size() == output.size());
-	cout<<"training\n";
-	for(size_t i = 0; i < input.size(); i++){
+	for(unsigned i = 0; i < input.size(); i++){
 		feedForward(input[i]);
 		backProp(output[i]);
 		}
+	}
+
+void Net::test(	vector<vector<double> > &input,
+		vector<vector<double> > &output, double &error){
+	assert(input.size() == output.size());
+	vector<double> tempOut;
+	error = 0.0;
+	for(unsigned i = 0; i < (input.size() - 1); i++){
+		getResults(tempOut);
+		error += rms(tempOut,output[i]);
+		}
+	error = (error / (double) input.size());
+	}
+
+double Net::rms(vector<double> &one, vector<double> &two){
+	assert(one.size() == two.size());
+	double delta;
+	double error = 0.0;
+	for(unsigned i = 0; i < one.size(); i++){
+		delta = one[i] - two[i];
+		error += delta * delta;
+		}
+	return sqrt(error / (double) one.size());
 	}
 
 void Net::saveWeights(string filename){
