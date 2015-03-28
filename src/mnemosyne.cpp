@@ -74,9 +74,13 @@ int main(int argc, char** argv){
 	// or something to that affect, should be very simple 
 	// and abstracted away
 
+<<<<<<< HEAD
 //	Data myData("../data/XORdata2k.txt");
 
 	Data myData("../data/somemnistdata.csv");
+=======
+	Data myData("../data/XORdata2k.txt");
+>>>>>>> b961a4eccccb0682b5ac816353449c39dba58e1a
 	//prep data
 	myData.makeCut();	//0.9 train/ 0.1 test, this can be changed
 	vector<vector<double> > trainingDataInput;
@@ -128,12 +132,20 @@ int main(int argc, char** argv){
 	//add in bounds checking for eta and alpha soon
 	
 	Net myNet(topology);
+<<<<<<< HEAD
+=======
+	myNet.train(trainingDataInput,trainingDataOutput);
+>>>>>>> b961a4eccccb0682b5ac816353449c39dba58e1a
 
+	myNet.save("../data/mynet1.meh");
 
+<<<<<<< HEAD
 	myNet.train(trainingDataInput,trainingDataOutput);
 
 //	myNet.save("../data/mynet1.meh");
 
+=======
+>>>>>>> b961a4eccccb0682b5ac816353449c39dba58e1a
 	//I think I need to clean up the memory here
 
 	double error = 0.0;
