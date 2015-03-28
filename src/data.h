@@ -36,6 +36,7 @@ class Data{
 		vector<vector<double> > testingInput;
 		vector<vector<double> > testingOutput;
 		void loadData(string);
+		void loadCSV(string);
 		void genIndices(vector<unsigned> &, unsigned, 
 				vector<unsigned> &, unsigned);
 

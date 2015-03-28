@@ -4,7 +4,8 @@
 #include "data.h"
 
 Data::Data(string filename){
-	loadData(filename);
+//	loadData(filename);
+	loadCSV(filename);
 	}
 
 void Data::makeCut(){
@@ -60,6 +61,49 @@ vector<vector<double> > Data::getTestingInput(){
 vector<vector<double> > Data::getTestingOutput(){
 	return testingOutput;
 	}
+
+void Data::loadCSV(string filename){
+	//rewriting this rather than reprocessinv the csv...not
+	//sure what the best solution is but want to test this
+	topology.clear();
+	inputVals.clear();
+	outputVals.clear();
+	string line;
+	unsigned n;
+	ifstream dataFile;
+	dataFile.open(filename.c_str());
+	getline(dataFile, line);
+	stringstream ss(line);
+
+	//first line contains input/output size info
+	vector<unsigned> topology;
+	while(!ss.eof()){
+		ss >> n;
+		topology.push_back(n);
+		}
+	
+//	cout<<"topology[0] = "<<topology[0]<<", "<<topology[1]<<endl;	
+	double value;
+//	string comma = ",";
+//	cout<<"testing this: "<<(double) comma<<endl;
+	vector<double> tempInput, tempOutput;
+	string tempString;
+	while(!dataFile.eof()){
+		getline(dataFile, line);
+		stringstream ss(line);
+		tempInput.clear();
+		tempOutput.clear();
+		ss >> value;
+		tempOutput.push_back(value);
+		while(!ss.eof()){
+			getline(ss, tempString, ',');
+			tempInput.push_back(atof(tempString.c_str()));
+			}
+		inputVals.push_back(tempInput);
+		outputVals.push_back(tempOutput);
+		}
+	}
+
 
 void Data::loadData(string filename){
 	topology.clear();

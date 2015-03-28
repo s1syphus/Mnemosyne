@@ -74,7 +74,9 @@ int main(int argc, char** argv){
 	// or something to that affect, should be very simple 
 	// and abstracted away
 
-	Data myData("../data/XORData.txt");
+//	Data myData("../data/XORdata2k.txt");
+
+	Data myData("../data/somemnistdata.csv");
 	//prep data
 	myData.makeCut();	//0.9 train/ 0.1 test, this can be changed
 	vector<vector<double> > trainingDataInput;
@@ -87,9 +89,21 @@ int main(int argc, char** argv){
 	testingDataInput = myData.getTestingInput();
 	testingDataOutput = myData.getTestingOutput();
 
+	/*
+	cout<<"size of training: "<<trainingDataInput[0].size()<<"\n";
+	cout<<"size of training: "<<trainingDataOutput[0].size()<<"\n";
+
+	for(unsigned i = 0; i < trainingDataInput[0].size(); i++){
+		cout<<trainingDataInput[0][i]<<" ";
+		}
+	cout<<endl;
+*/
 	vector<unsigned> topology;
 	topology.push_back(trainingDataInput[0].size());
 	topology.push_back(trainingDataOutput[0].size());
+
+	cout<<"topology: "<<topology[0]<<"\t"<<topology[1]<<endl;
+
 	for(size_t i = 0; i < topology.size(); i++){
 		cout<<topology[i]<<"\t";
 		}
@@ -114,11 +128,19 @@ int main(int argc, char** argv){
 	//add in bounds checking for eta and alpha soon
 	
 	Net myNet(topology);
-	cout<<"trainingDataInput.size() = "<<trainingDataInput.size()<<"\n";
-	cout<<"trainingDataOutput.size() = "<<trainingDataOutput.size()<<"\n";
-	//myNet.train(trainingDataInput,trainingDataOutput);
 
 
+	myNet.train(trainingDataInput,trainingDataOutput);
+
+//	myNet.save("../data/mynet1.meh");
+
+	//I think I need to clean up the memory here
+
+	double error = 0.0;
+	myNet.test(testingDataInput, testingDataOutput, error);	
+
+	cout<<"the error for this network is: "<<error<<endl;
+	cout<<"this is the end of the program, ignore any further errors for now\n";
 
 	return 0;
 	}

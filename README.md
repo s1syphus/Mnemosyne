@@ -7,7 +7,7 @@ Explain what it is and how to use it
 
 
 To Do:
-	Restructure training (and testing) to be in network class
+	Restructure training (and testing) to be in network class - Done
 	
 	Save/Load network
 		- Goes into network class

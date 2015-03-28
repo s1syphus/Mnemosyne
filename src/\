@@ -14,32 +14,45 @@ void Net::train(vector<vector<double> > &input,
 
 void Net::test(	vector<vector<double> > &input,
 		vector<vector<double> > &output, double &error){
-	assert(input.size() == output.size());
-	vector<double> tempOut;
-	error = 0.0;
-	for(unsigned i = 0; i < (input.size() - 1); i++){
-		getResults(tempOut);
-		error += rms(tempOut,output[i]);
-		}
-	error = (error / (double) input.size());
-	}
 
-double Net::rms(vector<double> &one, vector<double> &two){
-	assert(one.size() == two.size());
-	double delta;
-	double error = 0.0;
-	for(unsigned i = 0; i < one.size(); i++){
-		delta = one[i] - two[i];
-		error += delta * delta;
+	for(unsigned i = 0; i < input.size(); i++){
+		for(unsigned j = 0; j < input[i].size(); j++){
+			cout<<input[i][j]<<"\t";
+			}
+		cout<<"\n";
 		}
-	return sqrt(error / (double) one.size());
+
+
+
+	double correct = 0;
+	vector<double> oneSampleIn;
+	vector<double> oneSampleOut;	
+	vector<double> tempOut;
+	for(unsigned i = 0; i < input.size(); i++){
+		cout<<"testing sample: "<<i<<endl;
+		oneSampleIn = input[i];
+		cout<<"here\n";
+		oneSampleOut = output[i];
+
+		//temp stuff for debug
+		
+		for(unsigned j = 0; j < oneSampleIn.size(); j++){
+			cout<<oneSampleIn[j]<<"\t";
+			}
+		cout<<"\n";
+		cout<<"am i here\n";
+		feedForward(oneSampleIn);
+		getResults(tempOut);
+		if(tempOut == oneSampleOut){
+			correct++;
+			}
+		}
+	cout<<"here?\n";
+	error = (correct / (double) input.size())*100.0;
 	}
 
 void Net::saveWeights(string filename){
 	//stub
-
-
-
 	}
 
 void Net::loadWeights(string filename){

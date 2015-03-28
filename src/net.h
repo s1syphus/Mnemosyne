@@ -21,8 +21,6 @@ class Net{
 		Net(vector<unsigned>);
 		Net(vector<unsigned>,double, double);
 
-		//this will reset the eta and alpha for every 
-		//neuron in the net
 		void setEta(double);
 		void setAlpha(double);
 		double getEta();
@@ -32,29 +30,19 @@ class Net{
 		void backProp(vector<double> &);
 		void getResults(vector<double> &);
 
+		void train(	vector<vector<double> > &, 
+				vector<vector<double> > &);
 
-		void train(	vector<vector<double> > &input, 
-				vector<vector<double> >&output);
-
-		void test(	vector<vector<double> > &input, 
-				vector<vector<double> >&output);
-
+		void test(	vector<vector<double> > &, 
+				vector<vector<double> > &,
+			       	double &);
 
 		void saveWeights(string);
 		void loadWeights(string);
 
-	
 		double getRecentAverageError();
 
 	private:
-
-		//these functions will end up here but 
-		//are currently commented out so program compiles
-//		void feedForward(vector<double> &);
-//		void backProp(vector<double> &);
-//		void getResults(vector<double> &);
-
-
 
 		vector<Layer> m_layers;	
 		double m_error;
@@ -66,6 +54,8 @@ class Net{
 		//purposes
 		double m_alpha;
 		double m_eta;
+
+		double rms(vector<double> &, vector<double> &);
 	};
 
 
